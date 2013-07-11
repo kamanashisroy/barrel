@@ -1,0 +1,45 @@
+
+div.ci_form {
+	border:solid 1px #7f9db9;
+	background-color:#eeefff;
+}
+
+div.ci_form_input_div {
+	border:none 0px #7f9db9;
+	padding:3px;
+	font-size:8pt;
+	font-color:arial, verdana, sans-serif;
+}
+
+div.ci_form_input_div input {
+	border:solid 1px #7f9db9;
+	padding:3px;
+	font-size:8pt;
+	font-color:arial, verdana, sans-serif;
+}
+
+span.ci_form_input_label {
+	font-style: bold; padding-right: 10px; padding-bottom: 3px;
+}
+
+span.ci_form_input_label_inline {
+	font-style: bold; padding-right: 10px; padding-left: 10px; padding-bottom: 3px;
+}
+
+span.ci_form_input_tips {
+	font-style: italic; padding-right: 10px; padding-left: 10px; padding-bottom: 3px;
+}
+
+
+tr.common_top {
+	background-color:white;
+}
+tr.common_top td {
+	background-color:white;
+}
+td.common_left {
+	background-color:gray;
+}
+td.common_center {
+	background-color:white;
+}

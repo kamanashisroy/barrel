@@ -1,7 +1,7 @@
 <html>
 <head>
 <title><?php echo $project['title']; ?></title>
-<link class="common" href="css/common.css" rel="stylesheet" type="text/css" />
+<link class="common" href="themes/default/default.css" rel="stylesheet" type="text/css" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"></head>
 <body >
 <table width=1000 border=0 cellpadding=0 cellspacing=1>

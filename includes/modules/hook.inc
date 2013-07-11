@@ -3,7 +3,7 @@
 function module_call_hook($grp, $m, $hook, $inc = FALSE) {
 	$x = array();
 	if($inc) {
-		include("modules/".$grp."/".$m.".inc");
+		include("modules/".$grp."/".$m."/".$m.".inc");
 	}
 	$cb = $m.$hook;
 	if(is_callable($cb)) {

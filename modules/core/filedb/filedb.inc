@@ -1,5 +1,8 @@
 <?php
 
+// chown www-data:www-data -R .data
+define('FILEDB_HOME', '.data');
+
 function filedb_module_register() {
 	return array();
 }
@@ -16,7 +19,9 @@ function filedb_writefile($file, $x) {
 }
 
 function filedb_readfile($file) {
-	$fd = @fopen($file, 'r');
+	if(($fd = @fopen($file, 'r')) == FALSE) {
+		return FALSE;
+	}
 	$x = array();
 	while(($str = @fgets($fd))) {
 		$i = strpos($str, '=');
@@ -33,10 +38,10 @@ function filedb_readfile($file) {
 }
 
 function filedb_create_or_prepare_table($db, $tbl) {
-	if(!@file_exists('.data') && !@mkdir('.data', 0777)) {
+	if(!@file_exists(FILEDB_HOME) && !@mkdir('.data', 0777)) {
 		return;
 	}
-	$dbdir = '.data/'.make_it_txt($db);
+	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);
 	if(!@file_exists($dbdir) && !@mkdir($dbdir, 0777)) {
 		return;
 	}
@@ -55,7 +60,7 @@ function filedb_database_insert($db, $tbl, $more) {
 	
 	$tbldir = filedb_create_or_prepare_table($db, $tbl);
 	if(!$tbldir) {
-		echo "Could not create table dir, please check file permission\n";
+		error_report("Could not create table dir, please check file permission\n");
 		return FALSE;
 	}
 	$index = 1;
@@ -73,11 +78,11 @@ function filedb_database_insert($db, $tbl, $more) {
 	if(!filedb_writefile($infofile, $info) || !filedb_writefile($tbldir."/".$index, $more)) {
 		return FALSE;
 	}
-	return TRUE;
+	return $index;
 }
 
 function filedb_database_get($db, $tbl, $index) {
-	$dbdir = '.data/'.make_it_txt($db);
+	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);
 	$tbldir = $dbdir.'/'.make_it_txt($tbl);
 	$output = filedb_readfile($tbldir."/".$index);
 	return $output;
@@ -86,7 +91,7 @@ function filedb_database_get($db, $tbl, $index) {
 function filedb_database_delete($db, $tbl, $index) {
 }
 
-function filedb_play() {
+function filedb_database_register() {
 	return array(
 		'insert' => 'filedb_database_insert',
 		'delete' => 'filedb_database_delete',

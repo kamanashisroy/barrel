@@ -95,6 +95,7 @@ function play_command_execute($cmd) {
 	if(is_callable($cb)) {
 		$ret = call_user_func_array($cb, $args);
 		print_r($ret);
+		echo "\n";
 	} else {
 		echo "Command is not executable\n";
 	}
