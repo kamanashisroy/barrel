@@ -5,6 +5,7 @@ require_once("includes/headers/build.inc");
 function campaign_module_register() {
 	return array(
 		'campaign/create' => 'campaign_page_new',
+		'default_page' => 'campaign_page_new',
 	);
 }
 

@@ -1,12 +1,20 @@
 <?php
 
+$project['modules'] = array();
+$project['core/modules'] = array();
+include("modules/core/modules.conf");
+include("modules/user/modules.conf");
+
 $project['menu'] = array();
-function load_module($grp,$m) {
+function module_all_register() {
 	global $project;
-	include("modules/".$grp."/".$m.".inc");
-	$x = call_user_func($m."_module_register");
+	$x = module_all_call_hook('_module_register', TRUE);
 	$project['menu'] = array_merge($project['menu'], (array)$x);
 }
 
-load_module("core","loader");
+function module_all_cleanup() {
+	module_all_call_hook('_module_cleanup', FALSE);
+}
+
+module_all_register();
 
