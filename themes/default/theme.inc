@@ -1,6 +1,8 @@
 <?php
 
 include('themes/default/form.inc');
+include('themes/default/menu.inc');
+include('themes/default/view.inc');
 
 function render_theme($arg, $data = NULL) {
 	global $project;

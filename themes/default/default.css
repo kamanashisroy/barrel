@@ -1,6 +1,6 @@
 
 div.ci_form {
-	border:solid 1px #7f9db9;
+	border:none 1px #7f9db9;
 	background-color:#eeefff;
 }
 
@@ -8,14 +8,14 @@ div.ci_form_input_div {
 	border:none 0px #7f9db9;
 	padding:3px;
 	font-size:8pt;
-	font-color:arial, verdana, sans-serif;
+	font-family:arial, verdana, sans-serif;
 }
 
 div.ci_form_input_div input {
 	border:solid 1px #7f9db9;
 	padding:3px;
 	font-size:8pt;
-	font-color:arial, verdana, sans-serif;
+	font-family:arial, verdana, sans-serif;
 }
 
 span.ci_form_input_label {
@@ -30,16 +30,50 @@ span.ci_form_input_tips {
 	font-style: italic; padding-right: 10px; padding-left: 10px; padding-bottom: 3px;
 }
 
+div.ci_menu {
+	color:#47e34b;
+}
 
-tr.common_top {
+div.ci_menu a {
+	color:black;
+	display:block;
+	border:solid 1px #CCFFCC;
+	border-top-color:#EEFFEE;
+	border-left-color:#EEFFEE;
+	background-color:#FFFEEE;
+	margin:1px 1px 1px;
+	padding:1px 1px 1px;
+}
+
+div.ci_menu a:hover {
+	background-color:white;
+	border:solid 1px #fffAAA;
+	display:block;
+	color:black;
+}
+
+div.ci_view {
+	text-align: center;
+	margin:10px 10px 10px;
+	border:solid 1px #7f9db9;
+	background-color:#eeefff;
+}
+
+div.common_top {
 	background-color:white;
 }
-tr.common_top td {
+div.common_left {
+	border:none 1px #7f9db9;
+	background-color:white;
+	float:left;
+	padding:10px 10px 10px;
+}
+div.common_center {
 	background-color:white;
 }
-td.common_left {
-	background-color:gray;
+div.common_all {
+	height:100%;
 }
-td.common_center {
-	background-color:white;
+.common_header {
+	display:inline-block;
 }

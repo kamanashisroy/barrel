@@ -19,7 +19,7 @@ $playtool = array();
 $playtool['cmds'] = array();
 function play_command_load_commands() {
 	global $playtool;
-	$x = module_all_call_hook("_play");
+	$x = module_all_call_hook("_play", TRUE, 'play');
 	$playtool['cmds'] = array_merge((array)$playtool['cmds'], (array)$x);
 }
 

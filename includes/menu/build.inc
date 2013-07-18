@@ -1,5 +1,7 @@
 <?php
 
+include("includes/menu/menu.inc");
+
 function ci_page_get($arg_array) {
 	global $project;
 	$i = count($arg_array);
@@ -7,7 +9,7 @@ function ci_page_get($arg_array) {
 	for(;$i;$i--) {
 		$tmp = implode("/", array_slice($arg_array,0,$i));
 		if(isset($menu[$tmp])) {
-			return array('arg' => $tmp, 'func' => $menu[$tmp]);
+			return array('arg' => $tmp, 'menu_info' => $menu[$tmp]);
 		}
 	}
 	return FALSE;
@@ -23,11 +25,20 @@ function ci_page_build($arg, $data = NULL) {
 		if(!isset($menu['error/page_not_found'])) {
 			return "Page not found";
 		}
-		$func = $menu['error/page_not_found'];
+		$menu_info = $menu['error/page_not_found'];
 	} else {
-		$func = $func_data['func'];
+		$menu_info = $func_data['menu_info'];
 		//$arg = $func_data['arg'];
 	}
-	$output = call_user_func($func, $arg, $data);
+
+	$cb = ci_menu_get_cb($menu_info);
+	if(is_array($menu_info) && isset($menu_info['include'])) {
+		$user_filename = 'modules/user/'.$menu_info['include'];
+		$core_filename = 'modules/core/'.$menu_info['include'];
+		$target_filename = file_exists($user_filename)?$user_filename:$core_filename;
+		require_once($target_filename);
+	}
+
+	$output = call_user_func($cb, $arg, $data);
 	return $output;
 }

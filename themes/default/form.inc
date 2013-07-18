@@ -1,11 +1,9 @@
 <?php
 
-
 function theme_default_form_beautifier($a, $f, $rendered_item) {
 	$output = "<div class=\"ci_form\" align=\"right\">".$rendered_item."</div>";
 	return $output;
 }
-
 
 function theme_default_form_item_beautifier($a, $f, $rendered_item) {
 	$output = "<div class=\"ci_form_input_div\" align=\"right\">";
