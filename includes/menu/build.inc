@@ -15,6 +15,13 @@ function ci_page_get($arg_array) {
 	return FALSE;
 }
 
+function ci_page_access($x, $arg, $data) {
+	if(!isset($x['access']) || (is_bool($x['access']) && $x['access'] ) ) {
+		return TRUE;
+	}
+	return call_user_func($x['access'], $arg, $data);
+}
+
 function ci_page_build($arg, $data = NULL) {
 	if(!isset($arg) || $arg == "") {
 		$arg = 'default_page';
@@ -37,6 +44,10 @@ function ci_page_build($arg, $data = NULL) {
 		$core_filename = 'modules/core/'.$menu_info['include'];
 		$target_filename = file_exists($user_filename)?$user_filename:$core_filename;
 		require_once($target_filename);
+	}
+
+	if(ci_page_access($menu_info, $arg, $data) == FALSE) {
+		return error_page_not_found();
 	}
 
 	$output = call_user_func($cb, $arg, $data);

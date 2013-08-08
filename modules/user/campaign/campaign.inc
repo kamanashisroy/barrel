@@ -7,15 +7,23 @@ function campaign_module_register() {
 		'campaign/create' => array(
 			'cb' => 'campaign_page_new',
 			'title' => 'Add',
+			'access' => 'user_page_view_access',
 			'category' => 'Campaign',
 		),
 		'campaign/view' => array(
 			'cb' => 'campaign_page_view',
 			'category' => 'Campaign',
 			'title' => 'View',
+			'access' => 'user_page_view_access',
 			'include' => 'campaign/campaign.page.inc',
 		),
-		'default_page' => 'campaign_page_new',
+		'default_page' => array(
+			'cb' => 'campaign_page_new',
+			'category' => 'Campaign',
+			'title' => 'Add Campaign',
+			'access' => 'user_page_view_access',
+			'include' => 'user/user.api.inc',
+		),
 	);
 }
 

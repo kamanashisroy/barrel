@@ -2,7 +2,7 @@
 
 
 function user_login_form($data = NULL) {
-	$usrlgn = ci_form_new('user_login', 'user/create');
+	$usrlgn = ci_form_new('user_login_form', 'user/login');
 	$usrlgn['name'] = array(
 		'name' => 'name',
 		'title' => 'Name',
@@ -29,4 +29,22 @@ function user_login_form($data = NULL) {
 	return $usrlgn;
 }
 
+function user_login_helper() {
+	require_once('modules/user/user/user.api.inc');
+	session_destroy();
+	session_name(MEGHMALA);
+	session_start();
+	$_SESSION['name'] = 'Aparajita';
+	$_SESSION['username'] = 'aparajita';
+	$_SESSION['userid'] = '10';
+	$sessid = session_id();
+	$sessid = user_session_prefix().$sessid;
+	session_start($sessid);
+	//session_save();
+}
+
+function user_login_form_submit($f) {
+	user_login_helper();	
+	return 1;
+}
 

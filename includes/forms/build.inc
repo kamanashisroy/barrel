@@ -30,7 +30,7 @@ function ci_form_build($form_name, $module = NULL) {
 		}
 		$content .= ci_form_item_build($val, $f);
 	}
-	$output = "<form id=\"".$f{'name'}."\" name=\"".$form_name."[".$f{'name'}."]\" method=\"".$f{'name'}."\" action=\"?q=".$f{'action'}."\">".$content."</form>";
+	$output = "<form id=\"".$f{'form_name'}."\" name=\"".$form_name."[".$f{'form_name'}."]\" action=\"".ci_link_build($f{'action'})."\" method=\"POST\">".$content."</form>";
 	$output = call_user_func('theme_'.$f{'beautiflier'}."_form_beautifier", $val, $f, $output);
 	return $output;
 }

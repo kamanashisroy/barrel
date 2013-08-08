@@ -1,6 +1,7 @@
 <?php
 include("includes/config.inc");
 include("includes/string/simple.inc");
+include("includes/link.inc");
 include("includes/forms/build.inc");
 include("includes/forms/submit.inc");
 include("includes/modules/hook.inc");
