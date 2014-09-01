@@ -2,11 +2,18 @@
 
 define("MEGHMALA","KUNDALI");
 
-function user_load() {
+function user_load($session_id = null) {
 	session_name(MEGHMALA);	
-	if(!empty($_COOKIE[MEGHMALA])) {
-		session_start($_COOKIE[MEGHMALA]);
+
+	if(is_null($session_id) && !empty($_COOKIE[MEGHMALA])) {
+		$session_id = $_COOKIE[MEGHMALA];
 	}
+
+	if(!is_null($session_id)) {
+		session_id($session_id);
+		session_start($session_id);	
+	}
+
 	//print_r($SID);
 	//print_r($_COOKIE);
 	//print_r(session_id());
