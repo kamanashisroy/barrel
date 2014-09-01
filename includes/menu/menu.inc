@@ -7,3 +7,7 @@ function ci_menu_get_title($menu) {
 function ci_menu_get_cb($menu) {
 	return is_array($menu)?$menu['cb']:$menu;
 }
+
+function ci_menu_get_category($menu) {
+	return is_array($menu)?(isset($menu['category'])?$menu['category']:NULL):NULL;
+}
