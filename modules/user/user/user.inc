@@ -2,10 +2,19 @@
 
 define("MEGHMALA","KUNDALI");
 
-function user_module_register() {
+function user_load() {
+	session_name(MEGHMALA);	
 	if(!empty($_COOKIE[MEGHMALA])) {
 		session_start($_COOKIE[MEGHMALA]);
 	}
+	//print_r($SID);
+	//print_r($_COOKIE);
+	//print_r(session_id());
+	//print_r($_SESSION);
+}
+
+function user_module_register() {		
+	user_load();	
 	return array(
 		'user/logout' => 'user_logout',
 		'user/view' => array(

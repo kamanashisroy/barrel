@@ -29,7 +29,7 @@ function theme_default_menu_beautifier($menu) {
 	}
 
 	$output = "";
-	foreach($category as $index=>$cat) {
+	foreach($categories as $index=>$cat) {
 		$output .= theme_default_menu_beautifier_helper_for_category($cat, $menu);
 	}
 	return $output;

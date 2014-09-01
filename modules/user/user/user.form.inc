@@ -31,16 +31,18 @@ function user_login_form($data = NULL) {
 
 function user_login_helper() {
 	require_once('modules/user/user/user.api.inc');
-	session_destroy();
-	session_name(MEGHMALA);
-	session_start();
-	$_SESSION['name'] = 'Aparajita';
-	$_SESSION['username'] = 'aparajita';
+	//session_destroy();
+	global $_COOKIE;
+	$_COOKIE = array();
+	$name = 'Aparajita';
+	$userid = 10;
+	$_COOKIE[MEGHMALA] = user_session_prefix($name, $userid).rand(0,100);
+	user_load();
+	$_SESSION['name'] = $name;
+	$_SESSION['username'] = $userid;
 	$_SESSION['userid'] = '10';
-	$sessid = session_id();
-	$sessid = user_session_prefix().$sessid;
-	session_start($sessid);
-	//session_save();
+	//session_close();
+	setcookie(MEGHMALA, $_COOKIE[MEGHMALA]);
 }
 
 function user_login_form_submit($f) {
