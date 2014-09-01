@@ -3,7 +3,7 @@
 $db = array();
 function db_module_register() {
 	global $db;
-	$x = module_all_call_hook('_database_register', FALSE, 'db');
+	$x = module_all_call_hook('_database_register', TRUE, 'db');
 	$db = array_merge((array)$db, (array)$x);
 	return array();
 }

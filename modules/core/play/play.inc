@@ -77,6 +77,7 @@ function play_command_execute($cmd) {
 			$artoks[] = '(';
 			//echo "You provided an array in the argument.\n";
 		} else if ($x == ')' && $artoks != NULL) {
+			//echo "Building array.\n";
 			$artoks[] = ")";
 			$args[] = play_string_to_assoc_array($artoks);
 			$artoks = NULL;
@@ -86,7 +87,7 @@ function play_command_execute($cmd) {
 			$artoks[] = $x;
 		}
 	}
-	//print_r($args);
+	print_r($args);
 	if(!isset($playtool['cmds'][$exc])) {
 		echo "Command not found\n";
 		return;
