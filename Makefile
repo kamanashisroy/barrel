@@ -16,3 +16,6 @@ user_create:
 user_get:
 	echo "get doorlock user 1\nq" | ./playtool
 
+user_get_where:
+	echo "get_where doorlock user ( username => admin ) \nq" | ./playtool
+

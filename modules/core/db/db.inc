@@ -23,12 +23,18 @@ function db_get($db_name, $tbl, $index) {
 	return call_user_func($db['get'], $db_name, $tbl, $index);
 }
 
+function db_get_where($db_name, $tbl, $more) {
+	global $db;
+	return call_user_func($db['get_where'], $db_name, $tbl, $more);
+}
+
 function db_play() {
 	global $db;
 	return array(
 		'insert' => 'db_insert',
 		'delete' => 'db_delete',
 		'get' => 'db_get',
+		'get_where' => 'db_get_where',
 	);
 }
 

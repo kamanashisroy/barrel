@@ -84,6 +84,35 @@ function filedb_database_get($db, $tbl, $index) {
 	return $output;
 }
 
+function filedb_database_get_where($db, $tbl, $more) {
+	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);
+	$tbldir = $dbdir.'/'.make_it_txt($tbl);
+	$pattern = "";
+	foreach($more as $key=>$val) {
+		$pattern = "/^" . $key . " = " . $val . ".$/";
+	}
+	//echo "pattern:" . $pattern . "\n";
+	$index = 1;
+	$infofile = $tbldir."/.info";
+	$info = filedb_readfile($infofile);
+	if(!isset($info) || !isset($info['index'])) {
+	} else {
+		$info['index'] = intval($info['index']);
+		$index = $info['index'];
+	}
+	$i = 0;
+	for($i = 1; $i <= $index; $i++) {
+		$result = @preg_grep($pattern, file($tbldir."/".$i));
+		if(!empty($result));
+			return $i;
+	}
+	return -1;
+/*
+	$output = filedb_readfile($tbldir."/".$index);
+	return $output;
+*/
+}
+
 function filedb_database_delete($db, $tbl, $index) {
 }
 
@@ -92,6 +121,7 @@ function filedb_database_register() {
 		'insert' => 'filedb_database_insert',
 		'delete' => 'filedb_database_delete',
 		'get' => 'filedb_database_get',
+		'get_where' => 'filedb_database_get_where',
 	);
 }
 
