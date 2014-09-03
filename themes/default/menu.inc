@@ -22,7 +22,7 @@ function theme_default_menu_beautifier($menu) {
 
 	foreach($menu as $key=>$value) {
 		$cat = ci_menu_get_category($value);
-		if($cat === NULL || !ci_page_access($value, 'null', NULL) || (isset($value['type']) && $value['type'] == 'hidden')) {
+		if($cat === NULL || !ci_page_access($value, 'null', NULL) || (isset($value['type']) && $value['type'] == 'hidden') || in_array($cat, $categories)) {
 			continue;
 		}
 		$categories[] = $cat;
