@@ -2,6 +2,24 @@
 
 define("MEGHMALA","KUNDALI");
 
+
+$_user = null;
+function user_get() {
+	global $_user;
+	return $_user;
+}
+
+function user_set($userid) {
+	global $project;
+	$user = db_get($project['db'], 'user', $userid);
+	if(is_null($user) || !isset($user['username']))
+		return;
+	$user['index'] = $userid;
+	global $_user;
+	$_user = $user;
+}
+
+// load user from session.
 function user_load($session_id = null) {
 	session_name(MEGHMALA);	
 
@@ -12,13 +30,8 @@ function user_load($session_id = null) {
 	if(!is_null($session_id)) {
 		session_id($session_id);
 		session_start($session_id);	
-		db_get($project['db'], 'user', $_SESSION['userid']);
+		user_set($_SESSION['userid']);
 	}
-
-	//print_r($SID);
-	//print_r($_COOKIE);
-	//print_r(session_id());
-	//print_r($_SESSION);
 }
 
 function user_module_register() {		

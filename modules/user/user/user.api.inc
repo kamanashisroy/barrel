@@ -33,3 +33,12 @@ function user_is_admin() {
 	return user_is_logged_in() && ($_SESSION["userid"] == 1);
 }
 
+function user_get_by_username($username) {
+	global $project;
+	$index = db_get_where($project['db'], 'user', array ('username' => $username));
+	if($index <= 0)
+		return null;
+	$user = db_get($project['db'], 'user', $index);
+	$user['index'] = $index;
+	return $user;
+}

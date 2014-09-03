@@ -19,15 +19,14 @@ function module_all_call_hook($hook, $inc = FALSE, $suffix = NULL, $arg = NULL) 
 	global $project;
 	$x = array();
 	$i = 0;
-	$modules = $project['modules'];
-	for($i = 0;isset($modules[$i]);$i++) {
-		$y = module_call_hook("user", $modules[$i], $hook, $inc, $suffix, $arg);
-		$x = array_merge( (array)$x, (array)$y);
-		
-	}
 	$modules = $project['core/modules'];
 	for($i = 0;isset($modules[$i]);$i++) {
 		$y = module_call_hook("core", $modules[$i], $hook, $inc, $suffix, $arg);
+		$x = array_merge( (array)$x, (array)$y);
+	}
+	$modules = $project['modules'];
+	for($i = 0;isset($modules[$i]);$i++) {
+		$y = module_call_hook("user", $modules[$i], $hook, $inc, $suffix, $arg);
 		$x = array_merge( (array)$x, (array)$y);
 	}
 	return $x;
