@@ -31,7 +31,6 @@ function user_login_form($data = NULL) {
 
 function user_login_helper() {
 	require_once('modules/user/user/user.api.inc');
-	//session_destroy();
 	$name = 'Aparajita';
 	$userid = 10;
 	$session_id = user_session_prefix($name, $userid).rand(0,100);
@@ -40,10 +39,6 @@ function user_login_helper() {
 	$_SESSION['username'] = $name;
 	$_SESSION['userid'] = $userid;
 	setcookie(MEGHMALA, $session_id);
-	//print_r($_COOKIE);
-	//print_r(session_id());
-	//print_r($_SESSION);
-	//print_r($session_id);
 }
 
 function user_login_form_submit($f) {

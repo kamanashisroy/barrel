@@ -11,8 +11,8 @@ db_insert_test:
 	
 user_create:
 	echo "user_create ( username => admin password => 13456 )\nq" | ./playtool
-	echo "get campaign user 1\nq" | ./playtool
+	echo "get doorlock user 1\nq" | ./playtool
 
 user_get:
-	echo "get campaign user 1\nq" | ./playtool
+	echo "get doorlock user 1\nq" | ./playtool
 

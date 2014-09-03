@@ -29,3 +29,7 @@ function user_is_logged_in() {
 	return TRUE;
 }
 
+function user_is_admin() {
+	return user_is_logged_in() && ($_SESSION["userid"] == 1);
+}
+

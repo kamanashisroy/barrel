@@ -10,3 +10,7 @@ function user_login($arg, $data) {
 	}
 	//return 'User Login';
 }
+
+function user_view_page() {
+	return 'Hi you .. Mr.'.$_SESSION['name'] . ' session: ' . $_SESSION['userid'];
+}

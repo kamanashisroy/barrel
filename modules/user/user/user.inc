@@ -12,6 +12,7 @@ function user_load($session_id = null) {
 	if(!is_null($session_id)) {
 		session_id($session_id);
 		session_start($session_id);	
+		db_get($project['db'], 'user', $_SESSION['userid']);
 	}
 
 	//print_r($SID);
@@ -23,12 +24,25 @@ function user_load($session_id = null) {
 function user_module_register() {		
 	user_load();	
 	return array(
-		'user/logout' => 'user_logout',
+		'user/logout' => array(
+			'cb' => 'user_logout',
+			'category' => 'User',
+			'access' => 'user_view_page_access',
+			'title' => 'Log Out',
+		),
+		'user/admin' => array(
+			'cb' => 'user_admin_page',
+			'access' => 'user_admin_view_page_access',
+			'category' => 'User',
+			'title' => 'User Administration',
+			'include' => 'user/user.admin.inc',
+		),
 		'user/view' => array(
 			'cb' => 'user_view_page',
 			'access' => 'user_view_page_access',
 			'category' => 'User',
 			'title' => 'Hi',
+			'include' => 'user/user.page.inc',
 		),
 		'user/login' => array(
 			'cb' => 'user_login',
@@ -56,15 +70,15 @@ function user_view_page_access($arg, $data) {
 	return user_is_logged_in();
 }
 
-function user_view_page() {
-	//session_start();
-	return 'Hi you .. Mr.'.$_SESSION['name'];
+function user_admin_view_page_access($arg, $data) {
+	require_once('modules/user/user/user.api.inc');
+	return user_is_admin();
 }
 
-function user_logout() {
-	if(!empty($_COOKIE[MEGHMALA])) {
-		session_start($_COOKIE[MEGHMALA]);
-	}
+
+function user_logout($arg) {
+	user_load();
 	session_destroy();
-	return 'User Logout';
+	//return 'User Logout';
+	return ci_page_build($arg);
 }
