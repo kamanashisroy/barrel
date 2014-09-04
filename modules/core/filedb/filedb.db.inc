@@ -95,6 +95,7 @@ function filedb_database_get_where($db, $tbl, $more) {
 	$index = 1;
 	$infofile = $tbldir."/.info";
 	$info = filedb_readfile($infofile);
+	// TODO use filedb_database_visit to get one.
 	if(!isset($info) || !isset($info['index'])) {
 	} else {
 		$info['index'] = intval($info['index']);
@@ -113,7 +114,30 @@ function filedb_database_get_where($db, $tbl, $more) {
 */
 }
 
+function filedb_database_visit($db, $tbl, $visitor, &$visitor_data) {
+	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);
+	$tbldir = $dbdir.'/'.make_it_txt($tbl);
+	$files = @scandir($tbldir);
+	$i = 0;
+	$count = 0;
+	while(true) {
+		$i++;
+		if(!isset($files[$i]))
+			break;
+		if(!is_numeric($files[$i]))
+			continue;
+		$count++;
+		$index = $files[$i];
+		$content = filedb_readfile($tbldir . '/' . $index);
+		if(call_user_func($visitor, &$visitor_data, $content, $index)) {
+			break;
+		}
+	}
+	return $count;
+}
+
 function filedb_database_delete($db, $tbl, $index) {
+	// TODO fill me 
 }
 
 function filedb_database_register() {
@@ -121,6 +145,7 @@ function filedb_database_register() {
 		'insert' => 'filedb_database_insert',
 		'delete' => 'filedb_database_delete',
 		'get' => 'filedb_database_get',
+		'visit' => 'filedb_database_visit',
 		'get_where' => 'filedb_database_get_where',
 	);
 }

@@ -14,6 +14,27 @@ function user_login($arg, $data) {
 	}
 }
 
-function user_view_page() {
-	return 'Hi you .. Mr.'.$_SESSION['name'] . ' session: ' . $_SESSION['userid'];
+function user_view_page($arg = null) {
+	$user = null;
+	if(is_null($arg)) {
+		$user = user_get();
+	} else {
+		$tmp = split('/', $arg);
+		$index = isset($tmp[2])?$tmp[2]:-1;
+		$user = user_get($index);
+	}
+
+	$view = array(
+		'Login Name' => array(
+			'value' => $user['username'],
+		),
+		'Full Name' => array(
+			'value' => $user['fullname'],
+		),
+		'Created On' => array(
+			'value' => date('Y-m-d', $user['created_on']),
+		),
+	);
+	return theme_render_view($view);
+	//return ci_form_build('user_view_form', 'user', $user);
 }

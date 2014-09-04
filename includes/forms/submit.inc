@@ -1,6 +1,6 @@
 <?php
 
-function ci_form_submit($form_name, $data, $module = NULL) {
+function ci_form_submit($form_name, $data, $module = NULL, $arg = null) {
 	if($module != NULL) {
 		$filename = $module.'/'.$module.".form.inc";
 		$user_filename = "modules/user/".$filename;
@@ -8,9 +8,9 @@ function ci_form_submit($form_name, $data, $module = NULL) {
 		$target_filename = file_exists($user_filename)?$user_filename:$core_filename;
 		require_once($target_filename);
 	}
-	$f = call_user_func($form_name, $data);
+	$f = call_user_func($form_name, $data, $arg);
 	// TODO check if the user input is correct
-	return call_user_func($form_name.'_submit', $f);
+	return call_user_func($form_name.'_submit', $f, $arg);
 /*
 	if($val) {
 		// cleanup data

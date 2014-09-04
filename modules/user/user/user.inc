@@ -3,10 +3,21 @@
 define("MEGHMALA","KUNDALI");
 
 
-$_user = null;
-function user_get() {
-	global $_user;
-	return $_user;
+$_user = NULL;
+$_users = array();
+function user_get($userid = -1) {
+	if($userid == -1) {
+		global $_user;
+		return $_user;
+	}
+	global $_users;
+	if(isset($_users[$userid]))
+		return $_users[$userid];
+	global $project;
+	$user = db_get($project['db'], 'user', $userid);
+	$user['index'] = $userid;
+	$_users[$userid] = $user;
+	return $user;
 }
 
 function user_set($userid) {
@@ -43,11 +54,18 @@ function user_module_register() {
 			'access' => 'user_view_page_access',
 			'title' => 'Log Out',
 		),
-		'user/admin' => array(
-			'cb' => 'user_admin_page',
+		'user/admin/add' => array(
+			'cb' => 'user_admin_user_add_page',
 			'access' => 'user_admin_view_page_access',
-			'category' => 'User',
-			'title' => 'User Administration',
+			'category' => 'User Administration',
+			'title' => 'Add User',
+			'include' => 'user/user.admin.inc',
+		),
+		'user/admin/list' => array(
+			'cb' => 'user_admin_user_list',
+			'access' => 'user_admin_view_page_access',
+			'category' => 'User Administration',
+			'title' => 'Users',
 			'include' => 'user/user.admin.inc',
 		),
 		'user/view' => array(

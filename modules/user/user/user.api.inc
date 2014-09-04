@@ -42,3 +42,14 @@ function user_get_by_username($username) {
 	$user['index'] = $index;
 	return $user;
 }
+
+function user_add($user) {
+	global $project;
+	$user['created_on'] = time();
+	return db_insert($project['db'], 'user', $user);
+}
+
+function user_visit($visitor, &$arg) {
+	global $project;
+	return db_visit($project['db'], 'user', $visitor, $arg);
+}

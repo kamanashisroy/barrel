@@ -23,6 +23,11 @@ function db_get($db_name, $tbl, $index) {
 	return call_user_func($db['get'], $db_name, $tbl, $index);
 }
 
+function db_visit($db_name, $tbl, $visitor, &$visitor_data) {
+	global $db;
+	return call_user_func($db['visit'], $db_name, $tbl, $visitor, &$visitor_data);
+}
+
 function db_get_where($db_name, $tbl, $more) {
 	global $db;
 	return call_user_func($db['get_where'], $db_name, $tbl, $more);
