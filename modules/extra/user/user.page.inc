@@ -1,7 +1,7 @@
 <?php
 
 function user_login($arg, $data) {
-	require_once('modules/user/user/user.api.inc');
+	require_once('modules/extra/user/user.api.inc');
 	$output = ci_header_build('User Login');
 	if(isset($data) && is_array($data) && isset($data['user_login_form'])) {
 		ci_form_submit('user_login_form', $data, 'user');
@@ -24,15 +24,19 @@ function user_view_page($arg = null) {
 		$user = user_get($index);
 	}
 
+	if(!isset($user['username'])) {
+		$user = user_get();
+	}
+
 	$view = array(
 		'Login Name' => array(
 			'value' => $user['username'],
 		),
 		'Full Name' => array(
-			'value' => $user['fullname'],
+			'value' => isset($user['fullname'])?$user['fullname']:"",
 		),
 		'Created On' => array(
-			'value' => date('Y-m-d', $user['created_on']),
+			'value' => isset($user['created_on'])?date('Y-m-d', $user['created_on']):"",
 		),
 	);
 	return theme_render_view($view);

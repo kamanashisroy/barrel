@@ -86,7 +86,7 @@ function user_module_register() {
 }
 
 function user_menu_alter($menu) {
-	require_once('modules/user/user/user.api.inc');
+	require_once('modules/extra/user/user.api.inc');
 	if(user_is_logged_in()) {
 		unset($menu['user/login']);
 	} else {
@@ -97,12 +97,12 @@ function user_menu_alter($menu) {
 }
 
 function user_view_page_access($arg, $data) {
-	require_once('modules/user/user/user.api.inc');
+	require_once('modules/extra/user/user.api.inc');
 	return user_is_logged_in();
 }
 
 function user_admin_view_page_access($arg, $data) {
-	require_once('modules/user/user/user.api.inc');
+	require_once('modules/extra/user/user.api.inc');
 	return user_is_admin();
 }
 

@@ -19,14 +19,20 @@ function module_all_call_hook($hook, $inc = FALSE, $suffix = NULL, $arg = NULL) 
 	global $project;
 	$x = array();
 	$i = 0;
-	$modules = $project['core/modules'];
+	// TODO write a common rule instead of modules/core,modules/extra,modules/apps
+	$modules = $project['modules/core'];
 	for($i = 0;isset($modules[$i]);$i++) {
 		$y = module_call_hook("core", $modules[$i], $hook, $inc, $suffix, $arg);
 		$x = array_merge( (array)$x, (array)$y);
 	}
-	$modules = $project['modules'];
+	$modules = $project['modules/extra'];
 	for($i = 0;isset($modules[$i]);$i++) {
-		$y = module_call_hook("user", $modules[$i], $hook, $inc, $suffix, $arg);
+		$y = module_call_hook("extra", $modules[$i], $hook, $inc, $suffix, $arg);
+		$x = array_merge( (array)$x, (array)$y);
+	}
+	$modules = $project['modules/apps'];
+	for($i = 0;isset($modules[$i]);$i++) {
+		$y = module_call_hook("apps", $modules[$i], $hook, $inc, $suffix, $arg);
 		$x = array_merge( (array)$x, (array)$y);
 	}
 	return $x;

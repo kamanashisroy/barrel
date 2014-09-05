@@ -3,7 +3,8 @@
 $project['modules'] = array();
 $project['core/modules'] = array();
 include("modules/core/modules.conf");
-include("modules/user/modules.conf");
+include("modules/extra/modules.conf");
+include("modules/apps/modules.conf");
 
 $project['menu'] = array();
 function module_all_register() {

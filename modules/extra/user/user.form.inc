@@ -44,7 +44,7 @@ function user_login_form_submit($f, $arg = null) {
 	}
 
 	$username = $f['username']['value'];
-	require_once('modules/user/user/user.api.inc');
+	require_once('modules/extra/user/user.api.inc');
 	$user = user_get_by_username($username);
 	if(is_null($user))
 		return 0;
@@ -117,7 +117,7 @@ function user_add_form_submit($f, $arg = null) {
 	}
 
 	$username = $f['username']['value'];
-	require_once('modules/user/user/user.api.inc');
+	require_once('modules/extra/user/user.api.inc');
 	$user = array();
 	$user['username'] = $f['username']['value'];
 	$user['fullname'] = $f['fullname']['value'];
