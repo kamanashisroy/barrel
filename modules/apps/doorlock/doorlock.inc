@@ -10,6 +10,7 @@ function doorlock_module_register() {
 			'title' => 'Welcome',
 			'access' => 'user_view_page_access',
 			'include' => 'user/user.api.inc',
+			'dir' => module_get_dir(__FILE__),
 		),
 		'doorlock/test' => array(
 			'cb' => 'doorlock_test',
@@ -17,6 +18,7 @@ function doorlock_module_register() {
 			'title' => 'Testing',
 			'access' => 'user_admin_view_page_access',
 			'include' => 'user/user.api.inc',
+			'dir' => module_get_dir(__FILE__),
 		),
 		'doorlock/open' => array(
 			'cb' => 'doorlock_open',
@@ -24,6 +26,7 @@ function doorlock_module_register() {
 			'title' => 'Open',
 			'access' => 'user_view_page_access',
 			'include' => 'user/user.api.inc',
+			'dir' => module_get_dir(__FILE__),
 		),
 		'doorlock/log' => array(
 			'cb' => 'doorlock_logs',
@@ -31,6 +34,7 @@ function doorlock_module_register() {
 			'title' => 'Logs',
 			'access' => 'user_admin_view_page_access',
 			'include' => 'user/user.api.inc',
+			'dir' => module_get_dir(__FILE__),
 		),
 	);
 }

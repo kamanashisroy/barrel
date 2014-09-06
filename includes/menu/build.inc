@@ -40,12 +40,7 @@ function ci_page_build($arg, $data = NULL) {
 
 	$cb = ci_menu_get_cb($menu_info);
 	if(is_array($menu_info) && isset($menu_info['include'])) {
-		// TODO get the module name from the menu
-		$user_filename = 'modules/extra/'.$menu_info['include'];
-		$apps_filename = 'modules/apps/'.$menu_info['include'];
-		$core_filename = 'modules/core/'.$menu_info['include'];
-		$target_filename = file_exists($user_filename)?$user_filename:(file_exists($core_filename)?$core_filename:$apps_filename);
-		require_once($target_filename);
+		require_once(module_get_source($menu_info['include']));
 	}
 
 	if(ci_page_access($menu_info, $arg, $data) == FALSE) {

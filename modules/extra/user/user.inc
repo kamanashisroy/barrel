@@ -53,6 +53,7 @@ function user_module_register() {
 			'category' => 'User',
 			'access' => 'user_view_page_access',
 			'title' => 'Log Out',
+			'dir' => module_get_dir(__FILE__),
 		),
 		'user/admin/add' => array(
 			'cb' => 'user_admin_user_add_page',
@@ -60,6 +61,7 @@ function user_module_register() {
 			'category' => 'User Administration',
 			'title' => 'Add User',
 			'include' => 'user/user.admin.inc',
+			'dir' => module_get_dir(__FILE__),
 		),
 		'user/admin/list' => array(
 			'cb' => 'user_admin_user_list',
@@ -67,6 +69,7 @@ function user_module_register() {
 			'category' => 'User Administration',
 			'title' => 'Users',
 			'include' => 'user/user.admin.inc',
+			'dir' => module_get_dir(__FILE__),
 		),
 		'user/view' => array(
 			'cb' => 'user_view_page',
@@ -74,6 +77,7 @@ function user_module_register() {
 			'category' => 'User',
 			'title' => 'Hi',
 			'include' => 'user/user.page.inc',
+			'dir' => module_get_dir(__FILE__),
 		),
 		'user/login' => array(
 			'cb' => 'user_login',
@@ -81,6 +85,7 @@ function user_module_register() {
 			'title' => 'Login',
 			'type' => 'hidden',
 			'include' => 'user/user.page.inc',
+			'dir' => module_get_dir(__FILE__),
 		),
 	);
 }

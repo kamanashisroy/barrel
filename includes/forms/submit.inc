@@ -2,12 +2,7 @@
 
 function ci_form_submit($form_name, $data, $module = NULL, $arg = null) {
 	if($module != NULL) {
-		$filename = $module.'/'.$module.".form.inc";
-		$user_filename = 'modules/extra/'.$filename;
-		$apps_filename = 'modules/apps/'.$filename;
-		$core_filename = 'modules/core/'.$filename;
-		$target_filename = file_exists($user_filename)?$user_filename:(file_exists($core_filename)?$core_filename:$apps_filename);
-		require_once($target_filename);
+		require_once(module_get_source($module.'/'.$module.".form.inc"));
 	}
 	$f = call_user_func($form_name, $data, $arg);
 	// TODO check if the user input is correct

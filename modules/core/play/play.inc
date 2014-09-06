@@ -128,7 +128,9 @@ function play_command_show_full_help() {
 
 function play_play() {
 	return array(
-		'help' => 'play_command_show_full_help'
+		'help' => 'play_command_show_full_help',
+		'h' => 'play_command_show_full_help',
+		'?' => 'play_command_show_full_help',
 	);
 }
 

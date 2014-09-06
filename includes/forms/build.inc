@@ -16,13 +16,7 @@ function ci_form_build_and_output($f) {
 
 function ci_form_build($form_name, $module = NULL, $arg = NULL) {
 	if($module != NULL) {
-		// TODO get the module name from the menu
-		$filename = $module.'/'.$module.".form.inc";
-		$user_filename = 'modules/extra/'.$filename;
-		$apps_filename = 'modules/apps/'.$filename;
-		$core_filename = 'modules/core/'.$filename;
-		$target_filename = file_exists($user_filename)?$user_filename:(file_exists($core_filename)?$core_filename:$apps_filename);
-		require_once($target_filename);
+		require_once(module_get_source($module.'/'.$module.".form.inc"));
 	}
 	$f = call_user_func($form_name, null, $arg);
 	$content = "";
