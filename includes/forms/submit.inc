@@ -1,6 +1,6 @@
 <?php
 
-function ci_form_submit($form_name, $data, $module = NULL, $arg = null) {
+function barrel_form_submit($form_name, $data, $module = NULL, $arg = null) {
 	if($module != NULL) {
 		require_once(module_get_source($module.'/'.$module.".form.inc"));
 	}
@@ -20,7 +20,7 @@ function ci_form_submit($form_name, $data, $module = NULL, $arg = null) {
 */
 }
 
-function ci_form_set_value($f, $data) {
+function barrel_form_set_value($f, $data) {
 	foreach($data as $key=>$val) {
 		if(isset($f[$key])) {
 			$f[$key]['value'] = $val;

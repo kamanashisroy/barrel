@@ -2,7 +2,7 @@
 
 
 function user_login_form($data = NULL, $arg = null) {
-	$usrlgn = ci_form_new('user_login_form', 'user/login');
+	$usrlgn = barrel_form_new('user_login_form', 'user/login');
 	$usrlgn['username'] = array(
 		'name' => 'username',
 		'title' => 'Name',
@@ -24,7 +24,7 @@ function user_login_form($data = NULL, $arg = null) {
 	if(!is_null($data) && isset($data['user_login_form'])) {
 		$usrlgn['db_name'] = 'user';
 		$usrlgn['tbl_name'] = 'user';
-		$usrlgn = ci_form_set_value($usrlgn, $data['user_login_form']);
+		$usrlgn = barrel_form_set_value($usrlgn, $data['user_login_form']);
 	}
 	return $usrlgn;
 }
@@ -60,7 +60,7 @@ function user_login_form_submit($f, $arg = null) {
 }
 
 function user_add_form($data = NULL, $arg = null) {
-	$usrlgn = ci_form_new('user_add_form', 'user/admin/add');
+	$usrlgn = barrel_form_new('user_add_form', 'user/admin/add');
 	$usrlgn['fullname'] = array(
 		'name' => 'fullname',
 		'title' => 'Full Name',
@@ -99,7 +99,7 @@ function user_add_form($data = NULL, $arg = null) {
 	if(!is_null($data) && isset($data['user_add_form'])) {
 		$usrlgn['db_name'] = 'user';
 		$usrlgn['tbl_name'] = 'user';
-		$usrlgn = ci_form_set_value($usrlgn, $data['user_add_form']);
+		$usrlgn = barrel_form_set_value($usrlgn, $data['user_add_form']);
 	}
 	return $usrlgn;
 }
@@ -132,7 +132,7 @@ function user_view_form($data = NULL, $arg = null) {
 	if($arg == null)
 		return array();//user_all_view_form($data, $arg);
 	$user = $arg;
-	$usrlgn = ci_form_new('user_view_form', 'user/view/' . $user['index']);
+	$usrlgn = barrel_form_new('user_view_form', 'user/view/' . $user['index']);
 	$usrlgn['username'] = array(
 		'title' => 'Login Name',
 		'type' => 'label',

@@ -129,7 +129,7 @@ function filedb_database_visit($db, $tbl, $visitor, &$visitor_data) {
 		$count++;
 		$index = $files[$i];
 		$content = filedb_readfile($tbldir . '/' . $index);
-		if(call_user_func($visitor, &$visitor_data, $content, $index)) {
+		if(call_user_func($visitor, $visitor_data, $content, $index)) {
 			break;
 		}
 	}

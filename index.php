@@ -10,6 +10,6 @@ include("includes/menu/build.inc");
 include("includes/theme/build.inc");
 
 $project['debug'] = 1;
-ci_theme_build(isset($_REQUEST['q'])?$_REQUEST['q']:"");
+barrel_theme_build(isset($_REQUEST['q'])?$_REQUEST['q']:"");
 module_all_cleanup();
 

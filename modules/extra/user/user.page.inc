@@ -2,15 +2,15 @@
 
 function user_login($arg, $data) {
 	require_once('modules/extra/user/user.api.inc');
-	$output = ci_header_build('User Login');
+	$output = barrel_header_build('User Login');
 	if(isset($data) && is_array($data) && isset($data['user_login_form'])) {
-		ci_form_submit('user_login_form', $data, 'user');
+		barrel_form_submit('user_login_form', $data, 'user');
 	}
 	if(user_is_logged_in()) {
 		$user = user_get();
 		return user_view_page('user/view/'.$user['index']);
 	} else {
-		return ci_form_build('user_login_form', 'user');
+		return barrel_form_build('user_login_form', 'user');
 	}
 }
 
@@ -40,5 +40,5 @@ function user_view_page($arg = null) {
 		),
 	);
 	return theme_render_view($view);
-	//return ci_form_build('user_view_form', 'user', $user);
+	//return barrel_form_build('user_view_form', 'user', $user);
 }

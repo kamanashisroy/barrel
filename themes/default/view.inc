@@ -1,9 +1,9 @@
 <?php
 
 function theme_render_view($view) {
-	$output = "<div class=\"ci_view\">";
+	$output = "<div class=\"barrel_view\">";
 	foreach($view as $name=>$desc) {
-		$output .= "<div class=\"ci_view_item\">";
+		$output .= "<div class=\"barrel_view_item\">";
 		$output .= $name . ":" . $desc['value'];
 		$output .= "</div>";
 	}

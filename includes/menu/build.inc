@@ -2,7 +2,7 @@
 
 include("includes/menu/menu.inc");
 
-function ci_page_get($arg_array) {
+function barrel_page_get($arg_array) {
 	global $project;
 	$i = count($arg_array);
 	$menu = $project['menu'];
@@ -15,19 +15,19 @@ function ci_page_get($arg_array) {
 	return FALSE;
 }
 
-function ci_page_access($x, $arg, $data) {
+function barrel_page_access($x, $arg, $data) {
 	if(!isset($x['access']) || (is_bool($x['access']) && $x['access'] ) ) {
 		return TRUE;
 	}
 	return call_user_func($x['access'], $arg, $data);
 }
 
-function ci_page_build($arg, $data = NULL) {
+function barrel_page_build($arg, $data = NULL) {
 	if(!isset($arg) || $arg == "") {
 		$arg = 'default_page';
 	}
 	$arg_array = split('/',$arg);
-	$func_data = ci_page_get($arg_array);
+	$func_data = barrel_page_get($arg_array);
 	if(!$func_data) {
 		if(!isset($menu['error/page_not_found'])) {
 			return "Page not found";
@@ -38,12 +38,12 @@ function ci_page_build($arg, $data = NULL) {
 		//$arg = $func_data['arg'];
 	}
 
-	$cb = ci_menu_get_cb($menu_info);
+	$cb = barrel_menu_get_cb($menu_info);
 	if(is_array($menu_info) && isset($menu_info['include'])) {
 		require_once(module_get_source($menu_info['include']));
 	}
 
-	if(ci_page_access($menu_info, $arg, $data) == FALSE) {
+	if(barrel_page_access($menu_info, $arg, $data) == FALSE) {
 		return error_page_not_found();
 	}
 

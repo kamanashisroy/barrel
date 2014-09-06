@@ -1,40 +1,40 @@
 
-div.ci_form {
+div.barrel_form {
 	border:none 1px #7f9db9;
 	background-color:#eeefff;
 }
 
-div.ci_form_input_div {
+div.barrel_form_input_div {
 	border:none 0px #7f9db9;
 	padding:3px;
 	font-size:8pt;
 	font-family:arial, verdana, sans-serif;
 }
 
-div.ci_form_input_div input {
+div.barrel_form_input_div input {
 	border:solid 1px #7f9db9;
 	padding:3px;
 	font-size:8pt;
 	font-family:arial, verdana, sans-serif;
 }
 
-span.ci_form_input_label {
+span.barrel_form_input_label {
 	font-style: bold; padding-right: 10px; padding-bottom: 3px;
 }
 
-span.ci_form_input_label_inline {
+span.barrel_form_input_label_inline {
 	font-style: bold; padding-right: 10px; padding-left: 10px; padding-bottom: 3px;
 }
 
-span.ci_form_input_tips {
+span.barrel_form_input_tips {
 	font-style: italic; padding-right: 10px; padding-left: 10px; padding-bottom: 3px;
 }
 
-div.ci_menu {
+div.barrel_menu {
 	color:#47e34b;
 }
 
-div.ci_menu a {
+div.barrel_menu a {
 	color:black;
 	display:block;
 	border:solid 1px #CCFFCC;
@@ -45,14 +45,14 @@ div.ci_menu a {
 	padding:1px 1px 1px;
 }
 
-div.ci_menu a:hover {
+div.barrel_menu a:hover {
 	background-color:white;
 	border:solid 1px #fffAAA;
 	display:block;
 	color:black;
 }
 
-div.ci_view {
+div.barrel_view {
 	text-align: center;
 	margin:10px 10px 10px;
 	border:solid 1px #7f9db9;

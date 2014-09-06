@@ -1,10 +1,28 @@
 <?php
 
 $db = array();
+
 function db_module_register() {
 	global $db;
 	$x = module_all_call_hook('_database_register', TRUE, 'db');
 	$db = array_merge((array)$db, (array)$x);
+/*
+	if(isset($db['insert'])) {
+		rename_function($db['insert'],'db_insert');
+	}
+	if(isset($db['delete'])) {
+		rename_function($db['delete'],'db_delete');
+	}
+	if(isset($db['get'])) {
+		rename_function($db['get'],'db_get');
+	}
+	if(isset($db['visit'])) {
+		rename_function($db['visit'],'db_visit');
+	}
+	if(isset($db['get_where'])) {
+		rename_function($db['get_where'],'db_get_where');
+	}
+*/
 	return array();
 }
 
@@ -23,9 +41,10 @@ function db_get($db_name, $tbl, $index) {
 	return call_user_func($db['get'], $db_name, $tbl, $index);
 }
 
+// Note this is not call by reference, use decoupler
 function db_visit($db_name, $tbl, $visitor, &$visitor_data) {
 	global $db;
-	return call_user_func($db['visit'], $db_name, $tbl, $visitor, &$visitor_data);
+	return call_user_func($db['visit'], $db_name, $tbl, $visitor, $visitor_data);
 }
 
 function db_get_where($db_name, $tbl, $more) {

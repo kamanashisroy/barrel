@@ -116,5 +116,5 @@ function user_logout($arg) {
 	user_load();
 	session_destroy();
 	//return 'User Logout';
-	return ci_page_build($arg);
+	return barrel_page_build($arg);
 }
