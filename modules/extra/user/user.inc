@@ -79,6 +79,14 @@ function user_module_register() {
 			'include' => 'user/user.page.inc',
 			'dir' => module_get_dir(__FILE__),
 		),
+		'user/edit' => array(
+			'cb' => 'user_edit_page',
+			'access' => 'user_view_page_access',
+			'category' => 'User',
+			'title' => 'Personal Settings',
+			'include' => 'user/user.page.inc',
+			'dir' => module_get_dir(__FILE__),
+		),
 		'user/login' => array(
 			'cb' => 'user_login',
 			'category' => 'User',

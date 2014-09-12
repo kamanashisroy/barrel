@@ -21,3 +21,8 @@ You have a builtin filedatabase. And a playtool script to do things in shell.
 Good luck
 ==========
 You may play with the modules and let me know what you think.
+
+Tasks
+======
+
+[tasks](TASKS.md)

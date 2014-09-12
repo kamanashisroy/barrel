@@ -77,6 +77,26 @@ function filedb_database_insert($db, $tbl, $more) {
 	return $index;
 }
 
+
+function filedb_database_update($db, $tbl, $index, $more) {
+	// mkdir .data
+	// mkdir .data $db
+	// mkdir .data $db/$tbl
+	// echo $content > .data $db/$tbl/$index.data
+	
+	$tbldir = filedb_create_or_prepare_table($db, $tbl);
+	if(!$tbldir) {
+		error_report("Could not create table dir, please check file permission\n");
+		return FALSE;
+	}
+	// TODO write a function that locks and updates index file ..
+	if(!filedb_writefile($tbldir."/".$index, $more)) {
+		return FALSE;
+	}
+	return $index;
+}
+
+
 function filedb_database_get($db, $tbl, $index) {
 	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);
 	$tbldir = $dbdir.'/'.make_it_txt($tbl);
@@ -145,6 +165,7 @@ function filedb_database_register() {
 		'insert' => 'filedb_database_insert',
 		'delete' => 'filedb_database_delete',
 		'get' => 'filedb_database_get',
+		'update' => 'filedb_database_update',
 		'visit' => 'filedb_database_visit',
 		'get_where' => 'filedb_database_get_where',
 	);

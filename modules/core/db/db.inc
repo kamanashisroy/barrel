@@ -41,6 +41,11 @@ function db_get($db_name, $tbl, $index) {
 	return call_user_func($db['get'], $db_name, $tbl, $index);
 }
 
+function db_update($db_name, $tbl, $index, $content) {
+	global $db;
+	return call_user_func($db['update'], $db_name, $tbl, $index, $content);
+}
+
 // Note this is not call by reference, use decoupler
 function db_visit($db_name, $tbl, $visitor, &$visitor_data) {
 	global $db;

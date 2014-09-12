@@ -49,6 +49,11 @@ function user_add($user) {
 	return db_insert($project['db'], 'user', $user);
 }
 
+function user_save($user) {
+	global $project;
+	return db_update($project['db'], 'user', $user['index'], $user);
+}
+
 function user_visit($visitor, &$arg) {
 	global $project;
 	return db_visit($project['db'], 'user', $visitor, $arg);

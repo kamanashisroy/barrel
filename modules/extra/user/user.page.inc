@@ -42,3 +42,15 @@ function user_view_page($arg = null) {
 	return theme_render_view($view);
 	//return barrel_form_build('user_view_form', 'user', $user);
 }
+
+function user_edit_page($arg,$data) {
+	//require_once('modules/extra/user/user.api.inc');
+	$output = barrel_header_build('Personal Settings');
+	if(isset($data) && is_array($data) && isset($data['user_edit_form'])) {
+		$uid = barrel_form_submit('user_edit_form', $data, 'user');
+		return barrel_page_build('user/view/'.$uid);
+	}
+	return barrel_form_build('user_edit_form', 'user');
+}
+
+
