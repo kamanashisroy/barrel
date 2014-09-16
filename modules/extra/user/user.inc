@@ -41,7 +41,7 @@ function user_load($session_id = null) {
 	if(!is_null($session_id)) {
 		session_id($session_id);
 		session_start($session_id);	
-		user_set($_SESSION['userid']);
+		if(isset($_SESSION['userid']))user_set($_SESSION['userid']);
 	}
 }
 
@@ -125,5 +125,7 @@ function user_logout($arg) {
 	user_load();
 	session_destroy();
 	//return 'User Logout';
-	return barrel_page_build($arg);
+//	require_once(module_get_dir(__FILE__).'user/user.page.inc');
+	require_once(module_get_source('user/user.page.inc'));
+	return user_login('user/login');
 }

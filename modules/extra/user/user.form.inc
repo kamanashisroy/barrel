@@ -56,24 +56,40 @@ function user_login_form_submit($f, $arg = null) {
 	}
 
 	user_login_helper($user);
-	return $index;
+	return $user['index'];
 }
 
 function user_edit_form($data = NULL, $arg = null) {
-	$usrlgn = barrel_form_new('user_edit_form', 'user/edit');
-	$user = user_get();
+	$user = null;
+	$loggedin_user = user_get();
+	if(is_null($arg)) {
+		$user = $loggedin_user;
+	} else {
+		$tmp = split('/', $arg);
+		$index = isset($tmp[2])?$tmp[2]:-1;
+		$user = user_get($index);
+	}
+	$usrlgn = barrel_form_new('user_edit_form', isset($arg)?$arg:'user/edit');
+	$usrlgn['label_username'] = array(
+		'name' => 'username',
+		'title' => 'Username',
+		'type' => 'disabled',
+		'value' => $user['username'],
+	);
 	$usrlgn['fullname'] = array(
 		'name' => 'fullname',
 		'title' => 'Full Name',
 		'type' => 'text',
 		'value' => isset($user['fullname'])?$user['fullname']:$user['username'],
 	);
-	$usrlgn['old_password'] = array(
-		'name' => 'old_password',
-		'title' => 'Old Password',
-		'type' => 'password',
-		'tips' => 'Put your old password here.',	
-	);
+	if($user['index'] == $loggedin_user['index']) {
+		$usrlgn['old_password'] = array(
+			'name' => 'old_password',
+			'title' => 'Old Password',
+			'type' => 'password',
+			'tips' => 'Put your old password here.',	
+		);
+	}
 	$usrlgn['password'] = array(
 		'name' => 'password',
 		'title' => 'New Password',
@@ -107,15 +123,26 @@ function user_edit_form_submit($f, $arg = null) {
 	if(!isset($f)) {
 		return 0;
 	}
+	$user = null;
+	$loggedin_user = user_get();
+	if(is_null($arg)) {
+		$user = $loggedin_user;
+	} else {
+		$tmp = split('/', $arg);
+		$index = isset($tmp[2])?$tmp[2]:-1;
+		$user = user_get($index);
+	}
 
-	$user = user_get();
 	// set password
 	if(isset($f['password']) && isset($f['password']['value']) && $f['password']['value'] != "") {
 		$pass = $f['password']['value'];
 		$retype_pass = $f['retype_password']['value'];
-		if($pass != $retype_pass 
-			|| !isset($f['old_password']) || !isset($f['old_password']['value']) 
-			|| $f['old_password']['value'] != $user['password']) {
+		if($pass != $retype_pass) {
+			return 0;
+		}
+		if($user['index'] == $loggedin_user['index'] && (
+			!isset($f['old_password']) || !isset($f['old_password']['value']) 
+			|| $f['old_password']['value'] != $user['password'])) {
 			// set message("Your password entries did not match");
 			return 0;
 		}

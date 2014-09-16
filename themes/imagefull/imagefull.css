@@ -1,10 +1,11 @@
 
 div.barrel_form {
+	text-align:left;
 	border:none 1px #7f9db9;
-	background-color:#eeefff;
 }
 
 div.barrel_form_input_div {
+	text-align:right;
 	border:none 0px #7f9db9;
 	padding:3px;
 	font-size:8pt;
@@ -40,7 +41,7 @@ ul.barrel_menu {
 	position: relative;
 	margin:0px;
 	padding:0px;
-	border-bottom: 1px dotted;
+	border-bottom: dotted 1px #7f9db9;
 }
 
 ul.barrel_menu li {
@@ -61,8 +62,11 @@ ul.barrel_menu li a {
 }
 
 ul.barrel_menu li a:hover {
-	background-color:white;
 	color:black;
+}
+
+ul.wrapped {
+	background-color:white;
 }
 
 ul.wrapped li {
@@ -71,13 +75,17 @@ ul.wrapped li {
 
 li.barrel_current_page a {
 	font-weight:bold;
-	background: #fff url(lastnode.png) no-repeat;
+	background-color: #eeefff;
 }
 
 div.barrel_view {
+	margin:10px 10px 10px;
+}
+
+div.barrel_view_unused {
 	text-align: center;
 	margin:10px 10px 10px;
-	border:solid 1px #7f9db9;
+	border:dotted 1px #7f9db9;
 	background-color:#eeefff;
 }
 
@@ -86,14 +94,17 @@ div.common_top {
 }
 div.common_left {
 	border:none 1px #7f9db9;
-	background-color:white;
-	float:left;
 	padding:10px 10px 10px;
+	float:left;
+	width:20%;
 }
 div.common_center {
-	background-color:white;
+	text-align:left;
+	float:left;
+	width:75%;
 }
 div.common_all {
+	background-color:white;
 	height:100%;
 }
 .common_header {

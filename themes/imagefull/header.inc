@@ -11,9 +11,9 @@
     <h3 align="center" class="common_header"><center>
     <?php echo $project['heading']; ?></span> </center></h3>
 </div>
-                        <div class='common_left' width=135>
+                        <div class='common_left'>
 <?php echo theme_imagefull_menu_beautifier($arg, $project['menu']); ?>
                         </div>
-												<div class='common_center'>
+			<div class='common_center'>
 
 

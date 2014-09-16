@@ -34,9 +34,12 @@ function barrel_form_build($form_name, $module = NULL, $arg = NULL) {
 function barrel_form_item_build($a, $f) {
 	$output = "";
 	if($a['type'] == 'text' || $a['type'] == 'password' || $a['type'] == 'file') {
-		$output = "<input type=\"".$a{'type'}."\" name=\"".$f['form_name']."[".$a{'name'}."]\" id=\"".$a{'name'}."\" />";
-	} else if($a['type'] == 'submit') {
-		$output = "<input type=\"submit\" name=\"".$f['form_name']."[".$a{'name'}."]\" id=\"".$a{'name'}."\" value=\"".$a['title']."\" ></input>";
+		$output = "<input type=\"".$a{'type'}."\" name=\"".$f['form_name']."[".$a{'name'}."]\" id=\"".$a{'name'}."\" ";
+		if(isset($a['value']))
+			$output .= " value=\"".$a['value']."\"";
+		$output .= " />";
+	} else if($a['type'] == 'submit' || $a['type'] == 'disabled' || $a['type'] == 'reset') {
+		$output = "<input type=\"".$a['type']."\" name=\"".$f['form_name']."[".$a{'name'}."]\" id=\"".$a{'name'}."\" value=\"".(isset($a['value'])?$a['value']:$a['title'])."\" ></input>";
 	} else if($a['type'] == 'label') {
 		$output = "</span><span class=\"list_item_value\">".$a['value']."</span>";
 	}

@@ -1,6 +1,6 @@
 <?php
 
-function user_login($arg, $data) {
+function user_login($arg, $data = null) {
 	require_once('modules/extra/user/user.api.inc');
 	$output = barrel_header_build('User Login');
 	if(isset($data) && is_array($data) && isset($data['user_login_form'])) {
@@ -46,7 +46,7 @@ function user_view_page($arg = null) {
 			'value' => theme_render_link(
 				array(
 					'link' => barrel_link_build($edit_link),
-					'title' => (isset($user['fullname'])?$user['fullname']:"")
+					'title' => ((isset($user['fullname']) && $user['fullname'] != "")?$user['fullname']:$user['username'])
 				)
 			)
 		),
@@ -57,12 +57,12 @@ function user_view_page($arg = null) {
 
 function user_edit_page($arg,$data) {
 	//require_once('modules/extra/user/user.api.inc');
-	$output = barrel_header_build('Personal Settings');
+	//$output = barrel_header_build('Personal Settings');
 	if(isset($data) && is_array($data) && isset($data['user_edit_form'])) {
-		$uid = barrel_form_submit('user_edit_form', $data, 'user');
+		$uid = barrel_form_submit('user_edit_form', $data, 'user', $arg);
 		return barrel_page_build('user/view/'.$uid);
 	}
-	return barrel_form_build('user_edit_form', 'user');
+	return barrel_form_build('user_edit_form', 'user', $arg);
 }
 
 
