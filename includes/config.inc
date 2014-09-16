@@ -7,5 +7,5 @@ $project['company'] = 'Door Lock';
 $project['title'] = 'Door Lock';
 $project['heading'] = 'Door Lock';
 $project['logo'] = 'images/logo.jpg';
-$project['theme'] = 'default';
+$project['theme'] = 'imagefull';
 $project['db'] = 'doorlock';
