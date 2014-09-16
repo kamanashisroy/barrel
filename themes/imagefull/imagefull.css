@@ -40,6 +40,7 @@ ul.barrel_menu {
 	position: relative;
 	margin:0px;
 	padding:0px;
+	border-bottom: 1px dotted;
 }
 
 ul.barrel_menu li {

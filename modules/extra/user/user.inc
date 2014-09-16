@@ -48,11 +48,12 @@ function user_load($session_id = null) {
 function user_module_register() {		
 	user_load();	
 	return array(
-		'user/logout' => array(
-			'cb' => 'user_logout',
-			'category' => 'User',
-			'access' => 'user_view_page_access',
-			'title' => 'Log Out',
+		'user/admin/list' => array(
+			'cb' => 'user_admin_user_list',
+			'access' => 'user_admin_view_page_access',
+			'category' => 'User Administration',
+			'title' => 'Users',
+			'include' => 'user/user.admin.inc',
 			'dir' => module_get_dir(__FILE__),
 		),
 		'user/admin/add' => array(
@@ -63,19 +64,11 @@ function user_module_register() {
 			'include' => 'user/user.admin.inc',
 			'dir' => module_get_dir(__FILE__),
 		),
-		'user/admin/list' => array(
-			'cb' => 'user_admin_user_list',
-			'access' => 'user_admin_view_page_access',
-			'category' => 'User Administration',
-			'title' => 'Users',
-			'include' => 'user/user.admin.inc',
-			'dir' => module_get_dir(__FILE__),
-		),
 		'user/view' => array(
 			'cb' => 'user_view_page',
 			'access' => 'user_view_page_access',
 			'category' => 'User',
-			'title' => 'Hi',
+			'title' => 'My Account',
 			'include' => 'user/user.page.inc',
 			'dir' => module_get_dir(__FILE__),
 		),
@@ -83,9 +76,10 @@ function user_module_register() {
 			'cb' => 'user_edit_page',
 			'access' => 'user_view_page_access',
 			'category' => 'User',
-			'title' => 'Personal Settings',
+			'title' => 'Update Account',
 			'include' => 'user/user.page.inc',
 			'dir' => module_get_dir(__FILE__),
+			'type' => 'hidden',
 		),
 		'user/login' => array(
 			'cb' => 'user_login',
@@ -93,6 +87,13 @@ function user_module_register() {
 			'title' => 'Login',
 			'type' => 'hidden',
 			'include' => 'user/user.page.inc',
+			'dir' => module_get_dir(__FILE__),
+		),
+		'user/logout' => array(
+			'cb' => 'user_logout',
+			'category' => 'User',
+			'access' => 'user_view_page_access',
+			'title' => 'Log Out',
 			'dir' => module_get_dir(__FILE__),
 		),
 	);

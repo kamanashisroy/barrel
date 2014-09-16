@@ -6,10 +6,14 @@ function theme_imagefull_menu_beautifier_helper_for_category($current_page, $cat
 		$output .= "<a href=\"javascript:noaction()\">".$cat."</a>";
 	}
 	foreach($menu as $key=>$value) {
-		if(barrel_menu_get_category($value) != $cat || !barrel_page_access($value, 'null', NULL) || (isset($value['type']) && $value['type'] == 'hidden')) {
+		$highlight = false;
+		//if(isset($current_page) && strstr($current_page,$key))
+		if($current_page === $key)
+			$highlight = true;
+		if(barrel_menu_get_category($value) != $cat || !barrel_page_access($value, 'null', NULL) || (!$highlight && isset($value['type']) && $value['type'] == 'hidden')) {
 			continue;
 		}
-		if($key == $current_page)
+		if($highlight)
 			$output .= "<li class=\"barrel_current_page\">";
 		else
 			$output .= "<li>";

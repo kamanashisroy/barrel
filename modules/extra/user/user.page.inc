@@ -7,8 +7,9 @@ function user_login($arg, $data) {
 		barrel_form_submit('user_login_form', $data, 'user');
 	}
 	if(user_is_logged_in()) {
-		$user = user_get();
-		return user_view_page('user/view/'.$user['index']);
+		//$user = user_get();
+		//return user_view_page('user/view/'.$user['index']);
+		return user_view_page('user/view/');
 	} else {
 		return barrel_form_build('user_login_form', 'user');
 	}
@@ -16,12 +17,15 @@ function user_login($arg, $data) {
 
 function user_view_page($arg = null) {
 	$user = null;
+	$edit_link = 'user/edit';
 	if(is_null($arg)) {
 		$user = user_get();
 	} else {
 		$tmp = split('/', $arg);
 		$index = isset($tmp[2])?$tmp[2]:-1;
 		$user = user_get($index);
+		if($index == $user['index'])
+			$edit_link = 'user/edit/'.$user['index'];
 	}
 
 	if(!isset($user['username'])) {
@@ -37,6 +41,14 @@ function user_view_page($arg = null) {
 		),
 		'Created On' => array(
 			'value' => isset($user['created_on'])?date('Y-m-d', $user['created_on']):"",
+		),
+		'Edit' => array(
+			'value' => theme_render_link(
+				array(
+					'link' => barrel_link_build($edit_link),
+					'title' => (isset($user['fullname'])?$user['fullname']:"")
+				)
+			)
 		),
 	);
 	return theme_render_view($view);
