@@ -82,6 +82,11 @@ function user_edit_form($data = NULL, $arg = null) {
 		'type' => 'text',
 		'value' => isset($user['fullname'])?$user['fullname']:$user['username'],
 	);
+	$usrlgn['picture'] = array(
+		'name' => 'picture',
+		'title' => 'Picture',
+		'type' => 'file',
+	);
 	if($user['index'] == $loggedin_user['index']) {
 		$usrlgn['old_password'] = array(
 			'name' => 'old_password',
@@ -149,11 +154,11 @@ function user_edit_form_submit($f, $arg = null) {
 		$user['password'] =$pass; 
 	}
 
-	$username = $f['username']['value'];
 	require_once('modules/extra/user/user.api.inc');
 	
 	$user['fullname'] = $f['fullname']['value'];
 	$index = user_save($user);
+	if($index > -1)user_picture_update('picture', $index);
 	return $index;
 }
 
@@ -170,6 +175,11 @@ function user_add_form($data = NULL, $arg = null) {
 		'title' => 'Login Name',
 		'type' => 'text',
 		//'db_simple' => TRUE,
+	);
+	$usrlgn['picture'] = array(
+		'name' => 'picture',
+		'title' => 'Picture',
+		'type' => 'file',
 	);
 	$usrlgn['password'] = array(
 		'name' => 'password',
@@ -202,6 +212,57 @@ function user_add_form($data = NULL, $arg = null) {
 	return $usrlgn;
 }
 
+function user_picture_update($varname, $index) {
+	if (!isset($_FILES[$varname]['error']) || is_array($_FILES[$varname]['error'])) {
+		print_r($_FILES);
+		echo "error";
+		return -1;
+	}
+	switch ($_FILES[$varname]['error']) {
+		case UPLOAD_ERR_OK:
+		break;
+		case UPLOAD_ERR_NO_FILE:
+		case UPLOAD_ERR_INI_SIZE:
+		case UPLOAD_ERR_FORM_SIZE:
+		default:
+		echo "error";
+		return -1;
+	}
+	if ($_FILES[$varname]['size'] > 100000) {
+		echo "too big";
+		return -1;
+	}
+
+	$finfo = new finfo(FILEINFO_MIME_TYPE);
+	if (false === $ext = array_search(
+		$finfo->file($_FILES[$varname]['tmp_name']),
+		array(
+			'jpg' => 'image/jpeg',
+			'png' => 'image/png',
+			'gif' => 'image/gif',
+			'svg' => 'image/svg+xml',
+		),
+		true
+		)) {
+		echo "Unknown type:";
+		print_r($finfo->file($_FILES[$varname]['tmp_name']));
+		print_r($_FILES[$varname]);
+		return -1;
+	}
+
+	if (!move_uploaded_file(
+		$_FILES[$varname]['tmp_name'],
+		sprintf('.files/user_picture_%d.%s',
+			$index,
+			$ext
+		)
+	)) {
+		echo "Could not copy picture.";
+		return -1;
+	}
+	return 0;
+}
+
 function user_add_form_submit($f, $arg = null) {
 	if(!isset($f) || !isset($f['username']) || !isset($f['username']['value']) || !isset($f['password']) || !isset($f['password']['value'])) {
 		return 0;
@@ -221,6 +282,7 @@ function user_add_form_submit($f, $arg = null) {
 	$user['fullname'] = $f['fullname']['value'];
 	$user['password'] = $f['password']['value'];
 	$index = user_add($user);
+	if($index > -1)user_picture_update('picture', $index);
 	return $index;
 }
 

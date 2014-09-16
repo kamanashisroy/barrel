@@ -26,14 +26,14 @@ function barrel_form_build($form_name, $module = NULL, $arg = NULL) {
 		}
 		$content .= barrel_form_item_build($val, $f);
 	}
-	$output = "<form id=\"".$f{'form_name'}."\" name=\"".$form_name."[".$f{'form_name'}."]\" action=\"".barrel_link_build($f{'action'})."\" method=\"POST\">".$content."</form>";
+	$output = "<form id=\"".$f{'form_name'}."\" name=\"".$form_name."[".$f{'form_name'}."]\" action=\"".barrel_link_build($f{'action'})."\" method=\"POST\"  enctype=\"multipart/form-data\">".$content."</form>";
 	$output = call_user_func('theme_'.$f{'beautiflier'}."_form_beautifier", $val, $f, $output);
 	return $output;
 }
 
 function barrel_form_item_build($a, $f) {
 	$output = "";
-	if($a['type'] == 'text' || $a['type'] == 'password' || $a['type'] == 'file') {
+	if($a['type'] == 'text' || $a['type'] == 'password') {
 		$output = "<input type=\"".$a{'type'}."\" name=\"".$f['form_name']."[".$a{'name'}."]\" id=\"".$a{'name'}."\" ";
 		if(isset($a['value']))
 			$output .= " value=\"".$a['value']."\"";
@@ -42,6 +42,8 @@ function barrel_form_item_build($a, $f) {
 		$output = "<input type=\"".$a['type']."\" name=\"".$f['form_name']."[".$a{'name'}."]\" id=\"".$a{'name'}."\" value=\"".(isset($a['value'])?$a['value']:$a['title'])."\" ></input>";
 	} else if($a['type'] == 'label') {
 		$output = "</span><span class=\"list_item_value\">".$a['value']."</span>";
+	} else if($a['type'] == 'file') {
+		$output = "<input type=\"".$a['type']."\" name=\"".$a{'name'}."\" id=\"".$a{'name'}."\"/>";
 	}
 	$output = call_user_func('theme_'.$f{'beautiflier'}."_form_item_beautifier", $a, $f, $output);
 	return $output;

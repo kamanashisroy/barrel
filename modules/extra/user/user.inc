@@ -129,3 +129,21 @@ function user_logout($arg) {
 	require_once(module_get_source('user/user.page.inc'));
 	return user_login('user/login');
 }
+
+function user_picture($index = -1) {
+	$picture = "images/user.svg";
+	if($index == -1)
+		return $picture;
+	$picture_types = array('jpg', 'png', 'gif', 'svg');
+	foreach($picture_types as $key=>$ext) {
+		$alt = sprintf('.files/user_picture_%d.%s',
+			$index,
+			$ext
+		);
+		if(file_exists($alt)) {
+			$picture = $alt;
+			break;
+		}
+	}
+	return $picture;
+}

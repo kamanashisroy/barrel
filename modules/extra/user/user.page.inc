@@ -15,6 +15,7 @@ function user_login($arg, $data = null) {
 	}
 }
 
+
 function user_view_page($arg = null) {
 	$user = null;
 	$edit_link = 'user/edit';
@@ -33,6 +34,9 @@ function user_view_page($arg = null) {
 	}
 
 	$view = array(
+		'Picture' => array(
+			'value' => theme_render_image(array('src' => user_picture($user['index']))),
+		),
 		'Login Name' => array(
 			'value' => $user['username'],
 		),

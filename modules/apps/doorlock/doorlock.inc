@@ -1,5 +1,6 @@
 <?php
 
+define ("DOORLOCK_PIN", "4");
 require_once("includes/headers/build.inc");
 
 function doorlock_module_register() {
