@@ -27,7 +27,7 @@ function filedb_readfile($file) {
 		$key = substr($str, 0, $i);
 		$key = trim($key);
 		$val = substr($str, $i+1);
-		$x[$key] = $val;
+		$x[$key] = trim($val);
 	}
 	@fclose($fd);
 	return $x;
@@ -104,7 +104,7 @@ function filedb_database_get($db, $tbl, $index) {
 	return $output;
 }
 
-function filedb_database_get_where($db, $tbl, $more) {
+/*function filedb_database_get_where($db, $tbl, $more) {
 	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);
 	$tbldir = $dbdir.'/'.make_it_txt($tbl);
 	$pattern = "";
@@ -128,11 +128,30 @@ function filedb_database_get_where($db, $tbl, $more) {
 			return $i;
 	}
 	return -1;
-/*
-	$output = filedb_readfile($tbldir."/".$index);
-	return $output;
-*/
+}*/
+
+function filedb_database_get_where_helper($referer, $content, $index) {
+	$constraint = $referer[0]['where'];
+	$matches = true;
+	foreach($constraint as $key=>$val) {
+		if(!isset($content[$key]) || $content[$key] != $val)	{
+			$matches = false;		
+		}
+	}
+	if($matches) {
+		$referer[0]['index'] = $index;	
+	}
 }
+
+function filedb_database_get_where($db, $tbl, $more) {
+	$result = array();
+	$result['where'] = $more;
+	$result['index'] = -1;
+	$refer = array(&$result);
+	filedb_database_visit($db, $tbl, 'filedb_database_get_where_helper', $refer);	
+	return $result['index'];
+}
+
 
 function filedb_database_visit($db, $tbl, $visitor, &$visitor_data) {
 	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);
