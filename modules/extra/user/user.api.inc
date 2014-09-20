@@ -43,6 +43,11 @@ function user_get_by_username($username) {
 	return $user;
 }
 
+function user_delete($user) {
+	global $project;
+	return db_delete($project['db'], 'user', $user['index']);
+}
+
 function user_add($user) {
 	global $project;
 	$user['created_on'] = time();

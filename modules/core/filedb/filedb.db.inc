@@ -176,7 +176,10 @@ function filedb_database_visit($db, $tbl, $visitor, &$visitor_data) {
 }
 
 function filedb_database_delete($db, $tbl, $index) {
-	// TODO fill me 
+	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);
+	$tbldir = $dbdir.'/'.make_it_txt($tbl);
+	@unlink($tbldir.'/'.$index);
+	return $index;
 }
 
 function filedb_database_register() {

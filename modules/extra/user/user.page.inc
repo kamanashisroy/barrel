@@ -18,7 +18,7 @@ function user_login($arg, $data = null) {
 
 function user_view_page($arg = null) {
 	$user = null;
-	$edit_link = 'user/edit';
+	$edit_link_suffix="";
 	if(is_null($arg)) {
 		$user = user_get();
 	} else {
@@ -26,13 +26,25 @@ function user_view_page($arg = null) {
 		$index = isset($tmp[2])?$tmp[2]:-1;
 		$user = user_get($index);
 		if($index == $user['index'])
-			$edit_link = 'user/edit/'.$user['index'];
+			$edit_link_suffix = '/'.$user['index'];
 	}
 
 	if(!isset($user['username'])) {
 		$user = user_get();
 	}
 
+	$edit_link = theme_render_link(
+		array(
+			'link' => barrel_link_build("user/edit".$edit_link_suffix),
+			'title' => 'edit'
+		)
+	);
+	$delete_link = theme_render_link(
+		array(
+			'link' => barrel_link_build("user/delete".$edit_link_suffix),
+			'title' => 'delete'
+		)
+	);
 	$view = array(
 		'Picture' => array(
 			'value' => theme_render_image(array('src' => user_picture($user['index']))),
@@ -46,15 +58,9 @@ function user_view_page($arg = null) {
 		'Created On' => array(
 			'value' => isset($user['created_on'])?date('Y-m-d', $user['created_on']):"",
 		),
-		'Edit' => array(
-			'value' => theme_render_link(
-				array(
-					'link' => barrel_link_build($edit_link),
-					'title' => ((isset($user['fullname']) && $user['fullname'] != "")?$user['fullname']:$user['username'])
-				)
-			)
-		),
+		$edit_link => array('value' => $delete_link),
 	);
+
 	return theme_render_view($view);
 	//return barrel_form_build('user_view_form', 'user', $user);
 }
@@ -67,6 +73,44 @@ function user_edit_page($arg,$data) {
 		return barrel_page_build('user/view/'.$uid);
 	}
 	return barrel_form_build('user_edit_form', 'user', $arg);
+}
+
+
+function user_delete_page($arg,$data) {
+	$user = null;
+	$edit_link_suffix="";
+	if(is_null($arg)) {
+		$user = user_get();
+	} else {
+		$tmp = split('/', $arg);
+		$index = isset($tmp[2])?$tmp[2]:-1;
+		$user = user_get($index);
+		if($index == $user['index'])
+			$edit_link_suffix = '/'.$user['index'];
+	}
+
+	$output = "Are you sure, you want to delete ".theme_render_link(
+				array(
+					'link' => barrel_link_build("user/delete/confirm".$edit_link_suffix),
+					'title' => ((isset($user['fullname']) && $user['fullname'] != "")?$user['fullname']:$user['username'])
+				));
+	return $output;
+}
+
+function user_delete_confirm_page($arg,$data) {
+	$user = null;
+	if(is_null($arg)) {
+		$user = user_get();
+	} else {
+		$tmp = split('/', $arg);
+		$index = isset($tmp[3])?$tmp[3]:-1;
+		$user = user_get($index);
+	}
+
+	user_delete($user);
+
+	$output = ((isset($user['fullname']) && $user['fullname'] != "")?$user['fullname']:$user['username'])." is deleted";
+	return $output;
 }
 
 
