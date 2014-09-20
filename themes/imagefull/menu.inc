@@ -3,7 +3,7 @@
 function theme_imagefull_menu_beautifier_helper_for_category($current_page, $cat, $menu) {
 	$output = "<ul class=\"barrel_menu\" align=\"left\" onClick=\"unwrap(this);\">";
 	if($cat != NULL) {
-		$output .= "<a href=\"javascript:noaction()\">".$cat."</a>";
+		$output .= "<a href=\"javascript:void(0)\">".$cat."</a>";
 	}
 	foreach($menu as $key=>$value) {
 		$highlight = false;

@@ -11,4 +11,5 @@
 	- [ ] Create a footer menu.
 	- [x] Create a box around each menu group.
 - [x] Fixup where clause.
+- [ ] Add delete button.
 

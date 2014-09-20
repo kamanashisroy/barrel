@@ -21,10 +21,6 @@ window.onload = function () {
 	}
 };
 
-function noaction() {
-	return false;
-}
-
 function unwrap(item) {
 	if(item.className.indexOf("wrapped") != -1) {
 		item.className = item.className.replace(" wrapped","");

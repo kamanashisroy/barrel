@@ -13,6 +13,7 @@ function doorlock_job_testing() {
 
 function doorlock_job_open() {
 	echo "It should open the door.\n";
-	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 1);
+	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 0);
+	//file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 1);
 }
 

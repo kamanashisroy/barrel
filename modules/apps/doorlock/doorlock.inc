@@ -13,8 +13,8 @@ function doorlock_module_register() {
 			'include' => 'user/user.api.inc',
 			'dir' => module_get_dir(__FILE__),
 		),
-		'doorlock/test' => array(
-			'cb' => 'doorlock_test',
+		'doorlock/close' => array(
+			'cb' => 'doorlock_close',
 			'category' => 'Door',
 			'title' => 'Testing',
 			'access' => 'user_admin_view_page_access',
@@ -55,13 +55,13 @@ function doorlock_welcome($arg, $data = NULL) {
 
 function doorlock_open($arg, $data = NULL) {
 	$output = barrel_header_build('Opening');
-	// TODO do open task
+	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 0);
 	return $output;
 }
 
-function doorlock_test($arg, $data = NULL) {
-	$output = barrel_header_build('Testing');
-	// TODO write test script
+function doorlock_close($arg, $data = NULL) {
+	$output = barrel_header_build('Closing');
+	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 1);
 	return $output;
 }
 
