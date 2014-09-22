@@ -1,0 +1,21 @@
+#!/usr/bin/php
+<?php
+chdir('/srv/http');
+include("includes/config.inc");
+include("includes/string/simple.inc");
+include("includes/link.inc");
+include("includes/forms/submit.inc");
+include("includes/forms/build.inc");
+include("includes/modules/hook.inc");
+include("includes/modules/load.inc");
+include("includes/menu/build.inc");
+include("includes/theme/build.inc");
+
+$project['debug'] = 2;
+
+play_command_load_commands();
+while(true) {
+	sleep(2);
+	play_command_execute('doorlock_cron');
+}
+

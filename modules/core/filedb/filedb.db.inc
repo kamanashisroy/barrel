@@ -34,7 +34,7 @@ function filedb_readfile($file) {
 }
 
 function filedb_create_or_prepare_table($db, $tbl) {
-	if(!@file_exists(FILEDB_HOME) && !@mkdir('.data', 0777)) {
+	if(!@file_exists(FILEDB_HOME) && !@mkdir(FILEDB_HOME, 0777)) {
 		return;
 	}
 	$dbdir = FILEDB_HOME.'/'.make_it_txt($db);

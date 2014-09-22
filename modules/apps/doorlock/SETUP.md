@@ -19,7 +19,7 @@ listen = /run/php-fpm/php-fpm.sock
 Now edit the /etc/php/php.ini file. There will be a line defining open_basedir. It should be like the following,
 
 ```
-open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/:/sys/class/gpio/gpio4
+open_basedir = /srv/http/:/home/:/tmp/:/usr/share/pear/:/usr/share/webapps/:/sys/class/gpio/gpio4/
 ```
 
 ### Configure http
@@ -79,8 +79,8 @@ Description=Doorlock Opener
 
 [Service]
 ExecStartPre=/usr/bin/echo 4 >/sys/class/gpio/export
-ExecStart=/usr/bin/echo out >/sys/class/gpio/gpio4/direction
-ExecStart=/usr/bin/chmod a+rw /sys/class/gpio/gpio4/value
+ExecStart=/usr/bin/echo out >/sys/class/gpio/gpio4/direction ; /usr/bin/chmod a+rw /sys/class/gpio/gpio4/value
+ExecStartPost=/usr/bin/php /src/http/script/cronserv
 
 [Install]
 WantedBy=sysinit.target

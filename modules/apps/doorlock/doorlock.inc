@@ -53,11 +53,27 @@ function doorlock_welcome($arg, $data = NULL) {
 	return $output;
 }
 
-function doorlock_open($arg, $data = NULL) {
-	$output = barrel_header_build('Opening');
+function doorlock_open_cronjob() {
 	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 1);
-	// log the opening event
+}
+
+function doorlock_open($arg, $data = NULL) {
 	global $project;
+	$output = barrel_header_build('Opening');
+	$cron_job = db_get($project['db'], 'cron', 1);
+	$newcron = false;
+	if(!isset($cron_job) || !isset($cron_job['index'])) {
+		$newcron = true;
+		$cron_job = array();
+	}
+	$cron_job['cb'] = 'doorlock_open_cronjob';
+	$cron_job['done'] = 0;
+	if($newcron) {
+		db_insert($project['db'], 'cron', $cron_job);
+	} else {
+		db_update($project['db'], 'cron', 1, $cron_job);
+	}
+	// log the opening event
 	$user = user_get();
 	$log = array();
         $log['tm'] = time();
