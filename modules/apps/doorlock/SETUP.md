@@ -56,11 +56,13 @@ systemctl enable php-fpm.service httpd.service
 Install the website
 ======================
 
-Remove the /src/http directory and move website.tgz there. uncompress,
+Remove the /srv/http directory and move website.tgz there. uncompress,
 
 ```
+cd /srv
+rm -rf http
 tar -xzf website.tgz 
-mv website /src/http
+mv website /srv/http
 echo "4" > /sys/class/gpio/export
 echo "out" > /sys/class/gpio/gpio4/direction
 ```
@@ -78,9 +80,11 @@ Put the following code in /usr/lib/systemd/system/doorlock.service file.
 Description=Doorlock Opener
 
 [Service]
-ExecStartPre=/usr/bin/echo 4 >/sys/class/gpio/export
-ExecStart=/usr/bin/echo out >/sys/class/gpio/gpio4/direction ; /usr/bin/chmod a+rw /sys/class/gpio/gpio4/value
-ExecStartPost=/usr/bin/php /src/http/script/cronserv
+ExecStartPre=/usr/bin/echo 4 >/sys/class/gpio/export ; /usr/bin/echo out >/sys/class/gpio/gpio4/direction
+ExecStart=/usr/bin/php /srv/http/scripts/cronserv >/dev/null
+Type=simple
+RemainAfterExit=yes
+
 
 [Install]
 WantedBy=sysinit.target
@@ -89,6 +93,7 @@ WantedBy=sysinit.target
 Now enable the services to startup everything while booting.
 
 ```
+systemctl daemon-reload
 systemctl enable php-fpm.service doorlock.service httpd.service
 reboot
 ```

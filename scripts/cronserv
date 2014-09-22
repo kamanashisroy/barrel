@@ -1,6 +1,15 @@
 #!/usr/bin/php
 <?php
-chdir('/srv/http');
+$pid = pcntl_fork();
+if ($pid == -1) {
+     die('could not fork');
+} else if ($pid) {
+     // we are the parent
+     pcntl_wait($status); //Protect against Zombie children
+} else {
+     // we are the child
+//chdir('/srv/http');
+chdir('../');
 include("includes/config.inc");
 include("includes/string/simple.inc");
 include("includes/link.inc");
@@ -17,5 +26,6 @@ play_command_load_commands();
 while(true) {
 	sleep(2);
 	play_command_execute('doorlock_cron');
+}
 }
 
