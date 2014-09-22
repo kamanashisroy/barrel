@@ -43,6 +43,8 @@ function user_load($session_id = null) {
 		session_start($session_id);	
 		if(isset($_SESSION['userid']))user_set($_SESSION['userid']);
 	}
+	global $project;
+	date_default_timezone_set($project['timezone']);
 }
 
 function user_module_register() {		

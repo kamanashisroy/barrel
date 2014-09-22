@@ -16,7 +16,7 @@ function doorlock_module_register() {
 		'doorlock/close' => array(
 			'cb' => 'doorlock_close',
 			'category' => 'Door',
-			'title' => 'Testing',
+			'title' => 'Close',
 			'access' => 'user_admin_view_page_access',
 			'include' => 'user/user.api.inc',
 			'dir' => module_get_dir(__FILE__),
@@ -55,21 +55,29 @@ function doorlock_welcome($arg, $data = NULL) {
 
 function doorlock_open($arg, $data = NULL) {
 	$output = barrel_header_build('Opening');
-	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 0);
+	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 1);
+	// log the opening event
+	global $project;
+	$user = user_get();
+	$log = array();
+        $log['tm'] = time();
+        $log['userid'] = $user['index'];
+        db_insert($project['db'], 'doorlock', $log);
 	return $output;
 }
 
 function doorlock_close($arg, $data = NULL) {
 	$output = barrel_header_build('Closing');
-	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 1);
+	file_put_contents ('/sys/class/gpio/gpio'.DOORLOCK_PIN.'/value', 0);
 	return $output;
 }
 
 function doorlock_logs($arg,$data) {
 	$output = barrel_header_build('Logs');
 	$view = array();
+	$refer = array('view' => &$view);
 	global $project;
-	db_visit($project['db'], 'doorlock', 'doorlock_logs_helper', $view);
+	db_visit($project['db'], 'doorlock', 'doorlock_logs_helper', $refer);
 	if(empty($view)) {
 		return "No logs";
 	}
@@ -78,10 +86,10 @@ function doorlock_logs($arg,$data) {
 
 function doorlock_logs_helper(&$cb_argument, $content, $index) {
 	$uid = $content['userid'];
-	$user = user_load($uid);
+	$user = user_get($uid);
 	$name = isset($user)?(isset($user['fullname'])?$user['fullname']:$user['username']):'deleted';
-	$cb_argument[] = array(
-			'value' => theme_render_link(array('link' => barrel_link_build('user/view/'.$uid), 'title' => $name)) . $content['tm']
+	$cb_argument['view'][$name] = array(
+			'value' => theme_render_link(array('link' => barrel_link_build('user/view/'.$uid), 'title' => $name)) . date('Y-m-d', $content['tm'])
 		);
 	return 0;
 }

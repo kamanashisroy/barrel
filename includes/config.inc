@@ -9,3 +9,4 @@ $project['heading'] = 'Door Lock';
 $project['logo'] = 'images/logo.jpg';
 $project['theme'] = 'imagefull';
 $project['db'] = 'doorlock';
+$project['timezone'] = 'Asia/Dhaka';
