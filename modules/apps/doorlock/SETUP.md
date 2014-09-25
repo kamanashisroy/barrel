@@ -7,6 +7,7 @@ Apply following commands:
 ```
 pacman -Syu
 pacman -S php apache php-apache php-fpm
+pacman -S lua
 ```
 
 ### Configure php
@@ -80,10 +81,10 @@ Put the following code in /usr/lib/systemd/system/doorlock.service file.
 Description=Doorlock Opener
 
 [Service]
-ExecStartPre=/usr/bin/echo 4 >/sys/class/gpio/export ; /usr/bin/echo out >/sys/class/gpio/gpio4/direction
-ExecStart=/usr/bin/php /srv/http/scripts/cronserv >/dev/null
-Type=simple
-RemainAfterExit=yes
+WorkingDirectory=/srv/http/scripts/
+ExecStart=/usr/bin/bash /srv/http/scripts/cronserver.sh
+Type=forking
+KillMode=process
 
 
 [Install]

@@ -1,0 +1,13 @@
+#!/bin/sh
+echo "4" > /sys/class/gpio/export
+echo "out" > /sys/class/gpio/gpio4/direction
+while true
+do
+content=$(grep 0 /srv/http/.data/ZG9vcmxvY2s_/Y3Jvbg__/1)
+if [ -n "$content" ]; then
+echo "1" > /sys/class/gpio/gpio4/value
+echo "done=1" > /srv/http/.data/ZG9vcmxvY2s_/Y3Jvbg__/1
+fi
+
+sleep 2
+done
